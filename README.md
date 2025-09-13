@@ -128,4 +128,4 @@ Open [http://127.0.0.1:8000](http://127.0.0.1:8000) in your browser.
 
 ## 📝 License
 
-*(Add your preferred license here, e.g., MIT, GPL, or leave blank if personal use)*
+
