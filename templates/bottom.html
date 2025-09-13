@@ -1,0 +1,79 @@
+{% load static %}
+
+<div class="bottom-section">
+  <style>
+    .bottom-section {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .bottom-section .footer {
+      background: #352524;
+      color: white;
+      padding: 60px 20px;
+      clip-path: polygon(0 0, 100% 10%, 100% 100%, 0% 100%);
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .bottom-section .footer-content {
+      max-width: 600px;
+      padding: 0 20px;
+    }
+
+    .bottom-section .footer h3 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    .bottom-section .footer p {
+      font-size: 1rem;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .bottom-section .footer .btn {
+      background: #ffc107;
+      color: black;
+      padding: 10px 20px;
+      border: none;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .bottom-section .footer .btn:hover {
+      background-color: #e0a800;
+      color: white;
+    }
+
+
+    .bottom-section .footer small {
+      display: block;
+      margin-top: 30px;
+      font-size: 0.8rem;
+      color: #bbb;
+    }
+
+    .bottom-section .footer-image {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      margin-bottom: -50px;
+      z-index: 1;
+    }
+  </style>
+
+  <!-- Placeholder image instead of map -->
+  <img src="{% static 'images/banner.jpg' %}" alt="India Scenic Banner" class="footer-image">
+
+  <!-- Footer Section -->
+  <div class="footer">
+    <div class="footer-content">
+      <h3>Explore India Like Never Before</h3>
+      <p>Discover the beauty and magic of India through unforgettable journeys crafted just for you. Rocket Singh Tours takes you beyond the ordinary into the heart of India.</p>
+      <a href="{% url 'packages' %}" class="btn btn-warning fw-bold">Book Now</a>
+      <small>Rocket Singh © 2025</small>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,108 @@
+{% load static %}
+
+<!-- Translucent fixed navbar -->
+<div class="navbar-section">
+  <style>
+    .navbar-section nav {
+      background-color: rgba(0, 0, 0, 0.5); /* translucent black */
+      padding: 15px 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      backdrop-filter: blur(5px); /* subtle blur */
+    }
+
+    .navbar-section nav a {
+      color: white;
+      margin-left: 30px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .navbar-section nav a:hover {
+      color: #ffc107;
+    }
+
+    .navbar-section .logo {
+      font-weight: bold;
+      font-size: 1.4rem;
+      color: white;
+    }
+
+    .profile-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid white;
+      cursor: pointer;
+    }
+
+    .navbar-profile {
+      position: relative;
+      display: inline-block;
+      margin-left: 20px;
+    }
+
+    .navbar-profile .dropdown {
+      display: none;
+      position: absolute;
+      right: 0;
+      background-color: #00332f;
+      min-width: 130px;
+      box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+      border-radius: 8px;
+      z-index: 999;
+      padding: 10px 0;
+    }
+
+    .navbar-profile:hover .dropdown {
+      display: block;
+    }
+
+    .dropdown a {
+      display: block;
+      padding: 10px 16px;
+      text-decoration: none;
+      color: white;
+      font-size: 14px;
+    }
+
+    .dropdown a:hover {
+      background-color: #02544f;
+    }
+  </style>
+
+  <nav>
+    <a href="/">
+      <div class="logo">Rocket Singh</div>
+    </a>
+
+    <div>
+      <a href="{% url 'packages' %}">Packages</a>
+      <a href="{% url 'get_quote' %}">Contact</a>
+
+      <div class="navbar-profile">
+        {% if user.is_authenticated %}
+          <img src="{{ user.profile_photo.url }}" class="profile-icon"
+               onerror="this.onerror=null;this.src='{% static 'images/default.png' %}'">
+          <div class="dropdown">
+            <a href="{% url 'personalinfo' %}">👤 Profile</a>
+            <a href="{% url 'logout' %}">🚪 Logout</a>
+          </div>
+        {% else %}
+          <img src="{% static 'images/default.png' %}" class="profile-icon" alt="Login">
+          <div class="dropdown">
+            <a href="{% url 'login' %}">🔐 Login</a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+</div>

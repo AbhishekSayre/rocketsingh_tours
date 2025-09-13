@@ -1,0 +1,252 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Book Now | Rocket Singh{% endblock %}
+
+{% block content %}
+
+<style>
+  body {
+    background-color: #083932;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+  }
+  .container {
+    max-width: 800px;
+    margin: 80px auto;
+    padding: 20px;
+  }
+  h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  
+  .form-section {
+    background: #01342F;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Added shadow */
+  }
+
+  .form-label {
+    font-weight: 500;
+    margin-bottom: 5px;
+    font-size: 14px;
+    display: block;
+  }
+  .form-control {
+    background: #145A52;
+    color: #fff;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 5px;
+    font-size: 13px;
+    width: 100%;
+  }
+  .form-control::placeholder {
+    color: #ccc;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 13px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    background-color: #01342F;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  th, td {
+    padding: 6px 8px;
+    border-bottom: 1px solid #2e5c59;
+    vertical-align: middle;
+  }
+  th {
+    font-weight: 500;
+  }
+  .disabled {
+    background-color: #3e5c5a !important;
+  }
+  .btn-submit {
+    background: #00e6c3;
+    color: #000;
+    font-weight: 600;
+    padding: 10px 24px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 20px;
+    font-size: 14px;
+    width: 100%;
+  }
+  .tour-info p {
+    margin: 4px 0;
+    font-size: 14px;
+  }
+  .tour-info span {
+    font-weight: 600;
+  }
+  .amount-box {
+    font-size: 15px;
+    margin-top: 12px;
+    font-weight: 600;
+    color: #00e6c3;
+  }
+
+  table {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* soft dark shadow */
+    background-color: #01342F; /* match form-section background */
+    border-radius: 8px; /* smooth corners */
+    overflow: hidden; /* prevent border-radius issues */
+  }
+
+
+  
+</style>
+
+
+
+<div class="container">
+  <div class="form-section">
+    <h2>Tour Information</h2>
+    <div class="tour-info">
+      <p><span>Tour:</span> {{ tour.name }}</p>
+      <p><span>Destination:</span> {{ tour.destination }}</p>
+      <p><span>Duration:</span> {{ tour.duration }}</p>
+      <p><span>Price:</span> ₹{{ tour.price }} per person</p>
+    </div>
+  </div>
+
+  <form method="POST">
+    {% csrf_token %}
+
+    <div class="form-section">
+      <label class="form-label" for="num_travelers">Number of Travelers</label>
+      <select name="num_travelers" id="num_travelers" class="form-control" required>
+        {% for i in traveler_count_choices %}
+          <option value="{{ i }}">{{ i }}</option>
+        {% endfor %}
+      </select>
+
+
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Email</th>
+            <th>Phone</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in traveler_range %}
+          <tr>
+            <td>{{ i|add:1 }}</td>
+            <td><input type="text" name="traveler_name_{{ i }}" class="form-control traveler-input" required></td>
+            <td><input type="number" name="traveler_age_{{ i }}" class="form-control traveler-input" required></td>
+            <td><input type="email" name="traveler_email_{{ i }}" class="form-control traveler-input" required></td>
+            <td><input type="text" name="traveler_phone_{{ i }}" class="form-control traveler-input" required></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="form-section">
+      <label class="form-label" for="tour_date">Select Tour Date</label>
+      <select id="tour_date" name="tour_date" class="form-control" required>
+        {% for date in available_dates %}
+          <option value="{{ date.id }}" data-seats="{{ date.seats_available }}">
+            {{ date.date|date:"F j, Y" }} ({{ date.seats_available }} seats left)
+          </option>
+        {% empty %}
+          <option disabled>No dates available</option>
+        {% endfor %}
+      </select>
+
+
+
+      <label class="form-label">Special Request</label>
+      {{ booking_form.special_request }}
+
+      <div class="amount-box">Total Amount: ₹<span id="amount-display">{{ tour.price }}</span></div>
+
+      <button type="submit" class="btn-submit">Proceed to Payment</button>
+    </div>
+  </form>
+</div>
+
+<script>
+  const pricePerPerson = {{ tour.price }};
+
+  const travelerCount = document.getElementById('num_travelers');
+  const travelerInputs = document.querySelectorAll('.traveler-input');
+  const amountDisplay = document.getElementById('amount-display');
+  const tourDateSelect = document.getElementById('tour_date');
+
+
+
+  function updateTravelerFields(count) {
+    travelerInputs.forEach((input, index) => {
+      const row = Math.floor(index / 4);
+      input.disabled = row >= count;
+      if (input.disabled) input.classList.add('disabled');
+      else input.classList.remove('disabled');
+    });
+  }
+
+  function updateAmount(count) {
+    amountDisplay.textContent = pricePerPerson * count;
+  }
+
+  travelerCount.addEventListener('change', e => {
+    const count = parseInt(e.target.value);
+    updateTravelerFields(count);
+    updateAmount(count);
+  });
+
+  tourDateSelect.addEventListener('change', e => {
+    const selectedOption = e.target.selectedOptions[0];
+    const seats = parseInt(selectedOption.getAttribute('data-seats')) || 0;
+
+    const maxTravelers = seatsAvailable > 10 ? 10 : seatsAvailable;
+
+
+    travelerCount.innerHTML = "";
+    for (let i = 1; i <= maxTravelers; i++) {
+      const option = document.createElement('option');
+      option.value = i;
+      option.textContent = i;
+      travelerCount.appendChild(option);
+    }
+
+    updateTravelerFields(1);
+    updateAmount(1);
+  });
+ 
+
+  // Initial render
+document.addEventListener('DOMContentLoaded', () => {
+      // Get first date's available seats
+      const firstOption = tourDateSelect.selectedOptions[0];
+      const seatsAvailable = parseInt(firstOption.getAttribute('data-seats')) || 0;
+
+      // Limit dropdown based on seats
+      const maxTravelers = seatsAvailable > 10 ? 10 : seatsAvailable;
+      travelerCount.innerHTML = "";
+      for (let i = 1; i <= maxTravelers; i++) {
+          const option = document.createElement('option');
+          option.value = i;
+          option.textContent = i;
+          travelerCount.appendChild(option);
+      }
+
+      // Enable first row and initialize amount
+      updateTravelerFields(1);
+      updateAmount(1);
+  });
+</script>
+{% endblock %}

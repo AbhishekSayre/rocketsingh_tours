@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contact Us | Rocket Singh Tours{% endblock %}
+
+{% block content %}
+<div class="contact-wrapper">
+  <style>
+    .contact-wrapper {
+      background-color: #01342F;
+      min-height: 100vh;
+      padding:100px 20px 40px 20px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    .contact-box {
+      background-color: #003B36;
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.4);
+      width: 100%;
+      max-width: 450px;
+      color: white;
+    }
+
+    .contact-box h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #ffffff;
+      font-size: 24px;
+    }
+
+    .contact-box label {
+      font-weight: 500;
+      color: #D4D4D4;
+      display: block;
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+
+    .contact-box input,
+    .contact-box textarea {
+      width: 100%;
+      padding: 12px 14px;
+      margin-bottom: 16px;
+      border-radius: 8px;
+      border: none;
+      background-color: #145A52;
+      color: white;
+      font-size: 15px;
+    }
+
+    .contact-box input::placeholder,
+    .contact-box textarea::placeholder {
+      color: #bdbdbd;
+    }
+
+    .contact-box .form-error {
+      color: #f88;
+      font-size: 0.85rem;
+      margin-top: -12px;
+      margin-bottom: 10px;
+    }
+
+    .contact-box button {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      background-color: #2F8BFC;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .contact-box button:hover {
+      background-color: #1c6cd7;
+    }
+
+    #success-message {
+      transition: opacity 0.5s ease;
+      color: #4caf50;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+  </style>
+
+  <div class="contact-box">
+    <h2>Contact Us</h2>
+
+    {% if messages %}
+    <div id="message-container">
+        {% for message in messages %}
+        <div class="alert alert-success" id="success-message">{{ message }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {% for field in form %}
+        <div>
+          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {{ field }}
+          {% if field.errors %}
+            <div class="form-error">{{ field.errors|striptags }}</div>
+          {% endif %}
+        </div>
+      {% endfor %}
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  window.addEventListener('DOMContentLoaded', function () {
+    const msg = document.getElementById("success-message");
+    if (msg) {
+      setTimeout(() => {
+        msg.style.opacity = '0';
+      }, 1500);
+
+      setTimeout(() => {
+        window.location.href = '/';
+      }, 2000);
+    }
+  });
+</script>
+{% endblock %}

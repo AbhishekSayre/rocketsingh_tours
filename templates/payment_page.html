@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Confirm & Pay</title>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body style="background:#092b27; color:white; font-family:sans-serif; text-align:center; padding:40px;">
+  <h2>Complete Your Booking</h2>
+  <p><strong>Tour:</strong> {{ tour.name }}</p>
+  <p><strong>Total Travelers:</strong> {{ booking.travelers.count }}</p>
+  <p><strong>Total Amount:</strong> ₹{{ booking.total_amount }}</p>
+
+  <button id="rzp-button" style="padding: 10px 20px; font-weight: bold; background-color: #ffc107; border: none; border-radius: 5px; cursor: pointer;">
+    Pay with Razorpay
+  </button>
+
+  
+
+
+  <form id="payment-form" method="post" action="{% url 'payment_success' booking.id %}">
+    {% csrf_token %}
+    <input type="hidden" name="razorpay_payment_id" id="razorpay_payment_id">
+    <input type="hidden" name="razorpay_order_id" id="razorpay_order_id" value="{{ order_id }}">
+  </form>
+
+  <script>
+    const options = {
+      "key": "{{ razorpay_key }}",
+      //"amount": "{{ booking.total_amount|floatformat:2|add:'0'|floatformat:0 }}00",
+      "amount": "{{ amount }}",
+      "currency": "INR", 
+      "name": "Rocket Singh Tours",
+      "description": "Tour Booking",
+      "order_id": "{{ order_id }}",
+      "handler": function (response) {
+        document.getElementById('razorpay_payment_id').value = response.razorpay_payment_id;
+        document.getElementById('razorpay_order_id').value = response.razorpay_order_id;
+        document.getElementById('payment-form').submit();
+      },
+      "theme": {
+        "color": "#3399cc"
+      }
+    };
+    const rzp = new Razorpay(options);
+    document.getElementById('rzp-button').onclick = function (e) {
+      rzp.open();
+      e.preventDefault();
+    };
+  </script>
+</body>
+</html>

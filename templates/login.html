@@ -1,0 +1,195 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Login | Rocket Singh{% endblock %}
+
+{% block content %}
+<style>
+  body {
+    background-color: #043d3b; /* dark greenish background */
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .login-container {
+    max-width: 360px;
+    margin: 80px auto; 
+    background-color: #00332f;
+    border-radius: 20px;
+    padding: 40px 30px;
+    color: #fff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  }
+
+  .login-container h2 {
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 30px;
+    color: #ffffff;
+    font-size: 24px;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .form-group input {
+    width: 100%;
+    padding: 12px 15px 12px 42px;
+    border: none;
+    border-radius: 10px;
+    background-color: #00544d;
+    color: #d0e2e1;
+    font-size: 14px;
+  }
+
+  .form-group input::placeholder {
+    color: #9cc3c2;
+  }
+
+  .form-group i {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9cc3c2;
+    font-size: 18px;
+  }
+
+  .login-btn {
+    width: 100%;
+    background-color: #0d7ae5;
+    color: #fff;
+    padding: 12px;
+    border: none;
+    font-weight: bold;
+    border-radius: 10px;
+    margin-top: 10px;
+    font-size: 16px;
+  }
+
+  .separator {
+    text-align: center;
+    margin: 20px 0;
+    color: #ccc;
+    position: relative;
+  }
+
+  .separator::before,
+  .separator::after {
+    content: "";
+    height: 1px;
+    background-color: #555;
+    width: 40%;
+    position: absolute;
+    top: 50%;
+  }
+
+  .separator::before {
+    left: 0;
+  }
+
+  .separator::after {
+    right: 0;
+  }
+
+  .google-btn {
+    width: 100%;
+    background-color: #fff;
+    color: #444;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    text-decoration: none;
+    margin: 20px 0;
+    transition: 0.3s;
+}
+.google-btn:hover {
+    background-color: #f5f5f5;
+}
+.google-btn img {
+    width: 18px;
+    height: 18px;
+}
+
+
+  .signup-link {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+  }
+
+  .signup-link a {
+    color: #ffc107;
+    text-decoration: none;
+  }
+
+  .forgot-password-link {
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  .forgot-password-link a {
+    color: #9cc3c2; /* light greenish text */
+    font-size: 13px;
+    text-decoration: none;
+  }
+
+  .forgot-password-link a:hover {
+    text-decoration: underline;
+    color: #ffffff; /* brighter on hover */
+  }
+</style>
+
+<div class="login-container">
+  <h2>LOGIN PAGE</h2>
+  <form method="post">
+    {% csrf_token %}
+    
+    {% if messages %}
+      {% for message in messages %}
+        <p style="color: green; text-align: center;">{{ message }}</p>
+
+      {% endfor %}
+    {% endif %}
+
+    <div class="form-group">
+      <i class="fas fa-envelope"></i>
+      <input type="text" name="identifier" placeholder="Email or phone" autofocus>
+    </div>
+    <div class="form-group">
+      <i class="fas fa-lock"></i>
+      <input type="password" name="password" placeholder="Password">
+    </div>
+    {% if error %}<p style="color:red; font-size: 14px;">{{ error }}</p>{% endif %}
+    <button type="submit" class="login-btn">Login</button>
+    <div class="forgot-password-link">
+      <a href="{% url 'forgot_password' %}">Forgot Password?</a>
+    </div>
+  </form>
+
+  {% load socialaccount %}
+
+    <a href="{% url 'social:begin' 'google-oauth2' %}" class="google-btn">
+      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google Logo">
+      Login with Google
+    </a>
+
+
+
+
+  <div class="signup-link">
+    Don’t have an account? <a href="{% url 'signup' %}">Sign up</a>
+  </div>
+</div>
+
+<!-- Add font-awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+{% endblock %}
