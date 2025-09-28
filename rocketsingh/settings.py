@@ -14,12 +14,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-RAZORPAY_KEY_ID = config('RAZORPAY_KEY_ID')
-RAZORPAY_KEY_SECRET = config('RAZORPAY_KEY_SECRET')
+RAZORPAY_KEY_ID = os.environ.get("RAZORPAY_KEY_ID")
+RAZORPAY_KEY_SECRET = os.environ.get("RAZORPAY_KEY_SECRET")
 
 
 
-ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="").split(",")
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "rocketsingh_tours.railway.internal").split(",")
+
 
 
 try:
@@ -66,8 +67,9 @@ LOGIN_URL = "login"
 LOGOUT_URL = "logout"
 LOGOUT_REDIRECT_URL = "home"
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = config("SOCIAL_AUTH_GOOGLE_OAUTH2_KEY")
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config("SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET")
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get("SOCIAL_AUTH_GOOGLE_OAUTH2_KEY")
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get("SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET")
 
 SOCIAL_AUTH_USER_MODEL = "core.CustomUser"  # replace 'core' with your app name
 SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ["email", "profile"]
@@ -136,14 +138,15 @@ ACCOUNT_LOGIN_METHODS = {'email'}
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": config("MYSQL_DATABASE"),
-        "USER": config("MYSQLUSER"),
-        "PASSWORD": config("MYSQLPASSWORD"),
-        "HOST": config("MYSQLHOST", default="127.0.0.1"),
-        "PORT": config("MYSQLPORT", default="3306"),
+        "NAME": os.environ.get("MYSQL_DATABASE"),      # use Railway variable
+        "USER": os.environ.get("MYSQLUSER"),           # Railway username
+        "PASSWORD": os.environ.get("MYSQLPASSWORD"),   # Railway password
+        "HOST": os.environ.get("MYSQLHOST"),           # Railway host (copy from plugin)
+        "PORT": os.environ.get("MYSQLPORT", "3306"),   # Railway port
         "OPTIONS": {"init_command": "SET sql_mode='STRICT_TRANS_TABLES'"},
     }
 }
@@ -215,7 +218,6 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
-EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")       # same as Railway variable
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
-
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
