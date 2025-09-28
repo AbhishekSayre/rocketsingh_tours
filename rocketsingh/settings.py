@@ -19,7 +19,7 @@ RAZORPAY_KEY_SECRET = os.environ.get("RAZORPAY_KEY_SECRET")
 
 
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "rocketsingh_tours.railway.internal").split(",")
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "rocketsinghtours-production.up.railway.app").split(",")
 
 
 
