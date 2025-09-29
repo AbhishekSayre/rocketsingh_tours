@@ -142,11 +142,11 @@ ACCOUNT_LOGIN_METHODS = {'email'}
 DATABASES = {
     'default': {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": os.environ.get("MYSQL_DATABASE"),      # use Railway variable
-        "USER": os.environ.get("MYSQLUSER"),           # Railway username
-        "PASSWORD": os.environ.get("MYSQLPASSWORD"),   # Railway password
-        "HOST": os.environ.get("MYSQLHOST"),           # Railway host (copy from plugin)
-        "PORT": os.environ.get("MYSQLPORT", "3306"),   # Railway port
+        "NAME": config("MYSQL_DATABASE"),      # use Railway variable
+        "USER": config("MYSQLUSER"),           # Railway username
+        "PASSWORD": config("MYSQLPASSWORD"),   # Railway password
+        "HOST": config("MYSQLHOST"),           # Railway host (copy from plugin)
+        "PORT": config("MYSQLPORT", "3306"),   # Railway port
         "OPTIONS": {"init_command": "SET sql_mode='STRICT_TRANS_TABLES'"},
     }
 }
@@ -218,6 +218,6 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
-EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")       # same as Railway variable
-EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
+EMAIL_HOST_USER = config("EMAIL_HOST_USER")       # same as Railway variable
+EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
