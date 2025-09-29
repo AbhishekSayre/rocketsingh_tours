@@ -69,8 +69,7 @@ LOGIN_REDIRECT_URL = "/accounts/profile-check/"
 LOGOUT_REDIRECT_URL = "/"
 
 LOGIN_URL = "login"
-LOGOUT_URL = "logout"
-LOGOUT_REDIRECT_URL = "home"
+
 
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get("SOCIAL_AUTH_GOOGLE_OAUTH2_KEY")
