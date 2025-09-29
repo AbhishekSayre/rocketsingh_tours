@@ -14,12 +14,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-RAZORPAY_KEY_ID = os.environ.get("RAZORPAY_KEY_ID")
-RAZORPAY_KEY_SECRET = os.environ.get("RAZORPAY_KEY_SECRET")
+RAZORPAY_KEY_ID = config("RAZORPAY_KEY_ID")
+RAZORPAY_KEY_SECRET = config("RAZORPAY_KEY_SECRET")
 
 
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "rocketsinghtours-production.up.railway.app").split(",")
+ALLOWED_HOSTS = config("ALLOWED_HOSTS", "rocketsinghtours-production.up.railway.app").split(",")
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://rocketsinghtours-production.up.railway.app",
+]
+
 
 
 
