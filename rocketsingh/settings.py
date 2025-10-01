@@ -76,22 +76,22 @@ CSRF_TRUSTED_ORIGINS = [
     "https://rocketsinghtours-production-1249.up.railway.app",
 ]
 
-# # Security & SSL
-# if not DEBUG:
-#     # Force HTTPS in production
-#     SECURE_SSL_REDIRECT = True
+# Security & SSL
+if not DEBUG:
+    # Force HTTPS in production
+    SECURE_SSL_REDIRECT = True
     
-#     # Ensure cookies are only sent over HTTPS
-#     SESSION_COOKIE_SECURE = True
-#     CSRF_COOKIE_SECURE = True
+    # Ensure cookies are only sent over HTTPS
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
 
-#     # Tell Django it’s behind a proxy that handles SSL (Railway)
-#     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-# else:
-#     # Development defaults (no HTTPS enforcement)
-#     SECURE_SSL_REDIRECT = False
-#     SESSION_COOKIE_SECURE = False
-#     CSRF_COOKIE_SECURE = False
+    # Tell Django it’s behind a proxy that handles SSL (Railway)
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+else:
+    # Development defaults (no HTTPS enforcement)
+    SECURE_SSL_REDIRECT = False
+    SESSION_COOKIE_SECURE = False
+    CSRF_COOKIE_SECURE = False
 
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get("SOCIAL_AUTH_GOOGLE_OAUTH2_KEY")
