@@ -19,7 +19,10 @@ RAZORPAY_KEY_SECRET = config("RAZORPAY_KEY_SECRET")
 
 
 
-ALLOWED_HOSTS = config("ALLOWED_HOSTS", "rocketsinghtours-production.up.railway.app").split(",")
+
+
+ALLOWED_HOSTS = config("ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
+
 
 
 
@@ -47,11 +50,11 @@ INSTALLED_APPS = [
 
     "django.contrib.sites",   # <-- REQUIRED
 
-    # # Allauth
-    # "allauth",
-    # "allauth.account",
-    # "allauth.socialaccount",
-    # "allauth.socialaccount.providers.google",
+    # Allauth
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.google",
     
 ]
 
@@ -67,12 +70,7 @@ LOGOUT_REDIRECT_URL = "/"
 
 LOGIN_URL = "login"
 
-# settings.py
-# SECURE_SSL_REDIRECT = True
-# SESSION_COOKIE_SECURE = True
-# CSRF_COOKIE_SECURE = True
 
-# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 CSRF_TRUSTED_ORIGINS = [
     "https://rocketsinghtours-production.up.railway.app",
@@ -111,7 +109,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "social_django.middleware.SocialAuthExceptionMiddleware",
-    # "allauth.account.middleware.AccountMiddleware", 
+    "allauth.account.middleware.AccountMiddleware", 
 ]
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
@@ -140,8 +138,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'rocketsingh.wsgi.application'
 
-# ACCOUNT_SIGNUP_FIELDS = ['email*', 'password1*', 'password2*']
-# ACCOUNT_LOGIN_METHODS = {'email'}
+ACCOUNT_SIGNUP_FIELDS = ['email*', 'password1*', 'password2*']
+ACCOUNT_LOGIN_METHODS = {'email'}
 
 
 
