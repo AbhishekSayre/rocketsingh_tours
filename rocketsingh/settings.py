@@ -21,9 +21,6 @@ RAZORPAY_KEY_SECRET = config("RAZORPAY_KEY_SECRET")
 
 ALLOWED_HOSTS = config("ALLOWED_HOSTS", "rocketsinghtours-production.up.railway.app").split(",")
 
-CSRF_TRUSTED_ORIGINS = [
-    "https://rocketsinghtours-production.up.railway.app",
-]
 
 
 
@@ -50,11 +47,11 @@ INSTALLED_APPS = [
 
     "django.contrib.sites",   # <-- REQUIRED
 
-    # Allauth
-    "allauth",
-    "allauth.account",
-    "allauth.socialaccount",
-    "allauth.socialaccount.providers.google",
+    # # Allauth
+    # "allauth",
+    # "allauth.account",
+    # "allauth.socialaccount",
+    # "allauth.socialaccount.providers.google",
     
 ]
 
@@ -75,7 +72,11 @@ SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://rocketsinghtours-production.up.railway.app",
+]
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get("SOCIAL_AUTH_GOOGLE_OAUTH2_KEY")
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get("SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET")
@@ -110,7 +111,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "social_django.middleware.SocialAuthExceptionMiddleware",
-    "allauth.account.middleware.AccountMiddleware", 
+    # "allauth.account.middleware.AccountMiddleware", 
 ]
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
@@ -139,8 +140,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'rocketsingh.wsgi.application'
 
-ACCOUNT_SIGNUP_FIELDS = ['email*', 'password1*', 'password2*']
-ACCOUNT_LOGIN_METHODS = {'email'}
+# ACCOUNT_SIGNUP_FIELDS = ['email*', 'password1*', 'password2*']
+# ACCOUNT_LOGIN_METHODS = {'email'}
 
 
 
@@ -191,7 +192,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-SITE_ID = 1
 
 
 
