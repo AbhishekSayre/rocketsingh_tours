@@ -1,4 +1,4 @@
-from django.contrib.auth import get_user_model,login
+from django.contrib.auth import get_user_model, login
 from django.shortcuts import redirect
 from django.urls import reverse
 
@@ -11,17 +11,34 @@ def save_profile(backend, user, response, *args, **kwargs):
         user.name = response.get("name", user.name)
         user.save()
 
+
 def redirect_if_profile_incomplete(strategy, backend, user=None, *args, **kwargs):
     """
     After Google login, redirect user to complete_profile if profile incomplete.
-    Must return a redirect using `strategy.redirect()` for python-social-auth.
+    Must return a redirect using `strategy.redirect()`.
     """
     if user:
-        login(strategy.request, user)  # log in the user
+        # First, set backend for the user
+        backend_name = kwargs.get("backend")
+        if backend_name:
+            user.backend = backend_name
+
+        # Now log in the user
+        login(strategy.request, user)
+
         required_fields = ["name", "gender", "dob", "phone"]
         missing = [f for f in required_fields if not getattr(user, f, None)]
         if missing:
-            # Stop the pipeline and redirect
             return strategy.redirect(reverse("complete_profile"))
-        else:
-            return redirect("home")
+
+    return None
+
+
+def set_user_backend(strategy, user=None, *args, **kwargs):
+    """Attach backend attribute to user for multiple backends"""
+    if user:
+        backend = kwargs.get('backend')
+        if backend:
+            # Set backend as dotted import path string
+            user.backend = f"{backend.__module__}.{backend.__class__.__name__}"
+
