@@ -298,18 +298,8 @@ def update_personal_info_ajax(request):
         return JsonResponse({'status': 'error', 'message': 'Invalid field'})
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
 
-@login_required
-def upload_profile_photo(request):
-    if request.method == 'POST' and request.FILES.get('photo'):
-        user = request.user
-        user.profile_photo = request.FILES['photo']
-        user.save()
-        return JsonResponse({'status': 'success', 'photo_url': user.profile_photo.url})
-    return JsonResponse({'status': 'error'})
 
 
-
-# core/views.py
 
 
 

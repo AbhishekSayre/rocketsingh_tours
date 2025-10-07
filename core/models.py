@@ -43,11 +43,10 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     phone = models.CharField(max_length=15, unique=True, null=True, blank=True)
     name = models.CharField(max_length=100)
     gender = models.CharField(max_length=10, choices=[('Male', 'Male'), ('Female', 'Female'), ('Other', 'Other')], null=True, blank=True)
-    #date_of_birth = models.DateField(null=True, blank=True)
+    
     dob = models.DateField(null=True, blank=True)
     city = models.CharField(max_length=100, null=True, blank=True)
-    profile_picture = models.ImageField(upload_to='profiles/', null=True, blank=True)
-    profile_photo = models.ImageField(upload_to='profile_photos/', default='default.png', blank=True)
+    
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)

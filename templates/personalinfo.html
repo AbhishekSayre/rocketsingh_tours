@@ -153,9 +153,7 @@
   <div class="profile-section">
     <div class="profile-header">
       <h2>Edit Personal Info</h2>
-      <img src="{{ user.profile_photo.url }}" class="profile-photo" id="profile-photo-preview" onclick="document.getElementById('id_profile_photo').click()">
     </div>
-    <p>Update your details below</p>
     <div class="divider"></div>
 
     {% if messages %}
@@ -164,7 +162,7 @@
       {% endfor %}
     {% endif %}
 
-    <form method="post" enctype="multipart/form-data">
+    <form method="post">
       {% csrf_token %}
 
       <div class="user-info-row">
@@ -192,25 +190,11 @@
         {{ form.gender }}
       </div>
 
-      {{ form.profile_photo }}
 
       <button class="save-btn" type="submit">Save Changes</button>
     </form>
   </div>
 </div>
 
-<script>
-  document.getElementById('id_profile_photo').style.display = 'none';
 
-  document.getElementById('id_profile_photo').addEventListener('change', function(event) {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        document.getElementById('profile-photo-preview').src = e.target.result;
-      }
-      reader.readAsDataURL(file);
-    }
-  });
-</script>
 {% endblock %}

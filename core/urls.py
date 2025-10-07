@@ -16,7 +16,6 @@ urlpatterns = [
     path('logout/', views.custom_logout, name='logout'),
     path('personalinfo/', views.personal_info, name='personalinfo'),
     path('update-info/', views.update_personal_info_ajax, name='update_info_ajax'),
-    path('upload-photo/', views.upload_profile_photo, name='upload_profile_photo'),
     path('payment/<int:tour_id>/', views.payment_details, name='payment_details'),
     path('booknow/<int:tour_id>/', views.booknow, name='booknow'),
     path('payment-success/<int:booking_id>/', views.payment_success, name='payment_success'),
