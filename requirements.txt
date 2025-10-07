@@ -53,3 +53,7 @@ threadpoolctl==3.6.0
 tzdata==2025.2
 urllib3==2.5.0
 whitenoise==6.11.0
+cloudinary>=1.35.0
+django-cloudinary-storage>=0.3.0
+
+
