@@ -1,0 +1,127 @@
+{% load static %}
+
+<div class="feedback-section">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+    .feedback-section {
+      background-color: #ebe8e9;
+      color: #222;
+      font-family: 'Inter', sans-serif;
+      padding: 60px 0;
+    }
+
+    .feedback-section .container {
+      padding: 20px 70px;
+      max-width: 1300px;
+      margin: auto;
+    }
+
+    .feedback-section h2 {
+      color: #222;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .feedback-section .main-heading {
+      font-size: 40px;
+      font-weight: 600;
+      margin-top: 8px;
+      margin-bottom: 10px;
+      color: #222;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .feedback-section .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 40px;
+    }
+
+    .feedback-section .card {
+      background-color: #deddde;
+      padding: 40px 20px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      text-align: left;
+      height: 400px;
+    }
+
+    .feedback-section .card img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 20px;
+    }
+
+    .feedback-section .card p {
+      font-size: 18px;
+      font-weight: 600;
+      color: #111;
+      margin-bottom: 25px;
+      padding: 0 15px;
+    }
+
+    .feedback-section .card-author {
+      font-size: 14px;
+      color: #444;
+      font-style: normal;
+      text-align: left;
+      width: 100%;
+      margin-top: 10px;
+      padding-left: 30px;
+    }
+
+    @media (max-width: 992px) {
+      .feedback-section .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .feedback-section .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .feedback-section .container {
+        padding: 20px;
+      }
+    }
+  </style>
+
+  <div class="container">
+    <p class="text-uppercase text-muted">Explore Experiences</p>
+    <h6 class="main-heading"><b>Real Feedback on Our Tours</b></h6>
+    <p class="text-muted mb-5">
+      Exceptional service with personalized travel plans. Rocket Singh made our India journey unforgettable and hassle-free.<br>
+      Highly recommend their expertise!
+    </p>
+
+    <div class="grid">
+      <div class="card">
+        <img src="{% static 'images/indian1.jpg' %}" alt="Arjun Patel">
+        <p>Rocket Singh made my trip to India unforgettable! Their attention to detail and personalized service transformed my vacation into a seamless adventure.</p>
+        <div class="card-author">– Arjun Patel</div>
+      </div>
+
+      <div class="card">
+        <img src="{% static 'images/indian2.jpg' %}" alt="Meera Joshi">
+        <p>Rocket Singh exceeded expectations with meticulous planning and outstanding hospitality. We had an incredible journey across India.</p>
+        <div class="card-author">– Meera Joshi</div>
+      </div>
+
+      <div class="card">
+        <img src="{% static 'images/indian3.jpg' %}" alt="Rohan Desai">
+        <p>Our tour was remarkable. From the curated itinerary to personalized care, Rocket Singh delivers premium experiences at every turn.</p>
+        <div class="card-author">– Rohan Desai</div>
+      </div>
+    </div>
+  </div>
+</div>

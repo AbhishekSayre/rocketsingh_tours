@@ -1,0 +1,129 @@
+{% load static %}
+<div class="top-section">
+  <style>
+    .top-section {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+
+    .top-section .hero-carousel {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+       z-index: 0;
+    }
+
+    .top-section .carousel-inner .carousel-item {
+      height: 100vh;
+      background-size: cover;
+      background-position: center;
+      transition: none !important;
+    }
+
+    .top-section .carousel-caption-fixed {
+      position: absolute;
+      z-index: 10;
+      top: 30%;
+      left: 5%;
+      color: white;
+      text-align: left;
+      width: 50%;
+    }
+
+    .top-section .carousel-caption-fixed h1 {
+      font-size: 3rem;
+      font-weight: bold;
+    }
+
+    .top-section .carousel-indicators {
+      position: absolute;
+      bottom: 20%;
+      z-index: 11;
+    }
+
+    .top-section .carousel-indicators [data-bs-target] {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: white;
+      opacity: 0.5;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .top-section .carousel-indicators .active {
+      transform: scale(1.5);
+      opacity: 1;
+      background-color: #fff;
+    }
+
+    .top-section .slanted-section {
+      background-color: white;
+      transform: skewY(-4deg);
+      margin-top: -80px;
+      padding: 100px 0;
+    }
+
+    .top-section .slanted-inner {
+      transform: skewY(4deg);
+    }
+
+    @media (max-width: 768px) {
+      .top-section .carousel-caption-fixed h1 {
+        font-size: 2rem;
+      }
+
+      .top-section .carousel-caption-fixed {
+        width: 90%;
+      }
+
+      .top-section .carousel-indicators {
+        bottom: 25%;
+      }
+    }
+  </style>
+
+  <!-- HERO CAROUSEL -->
+  <div id="indiaCarousel" class="carousel hero-carousel carousel-fade" data-bs-ride="carousel" data-bs-interval="4000">
+
+    <!-- Static text on top of carousel -->
+    <div class="carousel-caption-fixed">
+      <h1>Journey Through India's Wonders</h1>
+      <p class="lead">Discover India like never before with our expertly curated tour packages, exploring the nation's breathtaking landscapes and rich heritage.</p>
+      <a href="{% url 'packages' %}" class="btn btn-outline-light fw-bold">Explore India Now</a>
+    </div>
+
+    <!-- Background image slides -->
+    <div class="carousel-inner">
+      <div class="carousel-item active" style="background-image: url('{% static "images/taj.jpg" %}');"></div>
+      <div class="carousel-item" style="background-image: url('{% static "images/sadhus.jpg" %}');"></div>
+      <div class="carousel-item" style="background-image: url('{% static "images/temple.jpg" %}');"></div>
+      <div class="carousel-item" style="background-image: url('{% static "images/jais.jpg" %}');"></div>
+      <div class="carousel-item" style="background-image: url('{% static "images/beach.jpg" %}');"></div>
+    </div>
+
+    <!-- Dot indicators only -->
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#indiaCarousel" data-bs-slide-to="0" class="active" aria-current="true"></button>
+      <button type="button" data-bs-target="#indiaCarousel" data-bs-slide-to="1"></button>
+      <button type="button" data-bs-target="#indiaCarousel" data-bs-slide-to="2"></button>
+      <button type="button" data-bs-target="#indiaCarousel" data-bs-slide-to="3"></button>
+      <button type="button" data-bs-target="#indiaCarousel" data-bs-slide-to="4"></button>
+    </div>
+  </div>
+
+  <!-- SLANTED SECTION -->
+  <div class="slanted-section">
+    <div class="container slanted-inner">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <h2 class="fw-bold">Adventure Awaits with Rocket Singh</h2>
+          <p>Rocket Singh is your trusted companion for exploring the vibrant and diverse landscapes of India. With expertly curated packages that blend culture and adventure, there's something for every kind of traveler. Whether it’s heritage sites, the Himalayas, or the coastlines, Rocket Singh ensures a memorable journey every step of the way.</p>
+        </div>
+        <div class="col-lg-6">
+          <img src="{% static 'images/image1.png' %}" class="img-fluid rounded shadow" alt="India Adventure">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<div style="text-align: center; padding: 50px;">
+  <h2 style="color: #ffc107;">Thank you for your booking!</h2>
+  <p style="color: white;">Your tour for <strong>{{ booking.tour.name }}</strong> has been successfully booked.</p>
+  <p style="color: white;">A confirmation email has been sent to all passengers.</p>
+  <a href="{% url 'packages' %}" style="color:#ffc107; font-weight: bold;">Back to Packages</a>
+  <a href="{% url 'download_booking_pdf' booking.id %}" class="btn btn-success mt-3">Download Booking PDF</a>
+
+</div>
+{% endblock %}

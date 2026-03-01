@@ -1,0 +1,55 @@
+{% extends "base.html" %} 
+
+{% block content %}
+<div class="container mt-5 p-4 rounded shadow" style="background-color: #e8f5e9;">
+    <h3 class="mb-4" style="color: #00695c;">Cancel Booking</h3>
+
+    {# If this booking is already in the past, block cancellation #}
+    {% if booking.tour_date < today %}
+        <div class="alert alert-danger mb-3">
+            Sorry, this booking is for a past date and cannot be cancelled.
+        </div>
+        <a href="{% url 'mybookings' %}" class="btn btn-secondary">Back to My Bookings</a>
+
+    {% elif booking.payment_status == "Cancelled" %}
+        <div class="alert alert-warning mb-3">
+            This booking has already been cancelled.
+        </div>
+        <a href="{% url 'mybookings' %}" class="btn btn-secondary">Back to My Bookings</a>
+
+    {% else %}
+        <div class="mb-3 p-3 rounded" style="background:#ffffff;">
+            <div class="row">
+                <div class="col-md-8">
+                    <p class="mb-1"><strong>Booking ID:</strong> #{{ booking.id }}</p>
+                    <p class="mb-1"><strong>Tour ID:</strong> #{{ booking.tour.id }}</p>
+                    <p class="mb-1"><strong>Tour:</strong> {{ booking.tour.name }}</p>
+                    <p class="mb-1"><strong>Date:</strong> {{ booking.tour_date }}</p>
+                    <p class="mb-1"><strong>Travelers:</strong> {{ booking.num_travelers }}</p>
+                    <p class="mb-0"><strong>Price:</strong> ₹{{ booking.total_amount|floatformat:2 }}</p>
+                </div>
+                <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                    {% if booking.tour.image %}
+                        <img src="{{ booking.tour.image.url }}" alt="{{ booking.tour.name }}" class="img-fluid rounded" style="max-height:120px; object-fit:cover;">
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="alert alert-warning">
+            <strong>Warning:</strong> Are you sure you want to cancel this booking? This action cannot be undone.
+        </div>
+
+        <p class="text-muted">
+            Refunds (if applicable) will be processed back to your original payment method within
+            <strong>7 working days</strong>.
+        </p>
+
+        <form method="post" class="mt-3">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Yes, Cancel</button>
+            <a href="{% url 'mybookings' %}" class="btn btn-secondary ms-2">No, Go Back</a>
+        </form>
+    {% endif %}
+</div>
+{% endblock %}

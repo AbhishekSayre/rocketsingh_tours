@@ -1,0 +1,199 @@
+{% load static %}
+
+<div class="middle-section">
+  <style>
+    .middle-section {
+  background-color: #234038;
+  color: white;
+  font-family: Arial, sans-serif;
+  padding: 60px 0;
+}
+
+.middle-section .container {
+  padding: 20px 30px; /* Less padding for wider view */
+}
+
+.middle-section h2 {
+  color: #ffffff;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+.middle-section h3 {
+  color: #ffffff;
+  margin-bottom: 10px;
+  
+}
+
+.middle-section p {
+  color: #d1d5db;
+}
+
+.middle-section .grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-top: 40px;
+  justify-content: center;
+}
+
+.middle-section .card {
+  background-color: #2e4e43;
+  border-radius: 12px;
+  overflow: hidden;
+  text-align: center;
+  max-width: 460px;     /* wider */
+  height: 500px;        /* taller */
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+
+}
+.middle-section .card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.middle-section .card img {
+  width: 92%;
+  height: 70%;
+  object-fit: cover;
+  border-radius: 10px;
+  margin: 16px auto 0 auto;
+  display: block;
+  margin: 10px;
+  transition: transform 0.4s ease-in-out;
+
+}
+.middle-section .card:hover img {
+  transform: scale(1.05);
+}
+
+.middle-section .card-content {
+  padding: 12px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 30%;
+}
+
+.middle-section .card-content h3 {
+  margin: 12px 0 10px;   /* Space above and below heading */
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.middle-section .card-content p {
+  font-size: 0.95rem;
+  color: #d1d5db;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.middle-section .footer {
+  margin-top: 40px;
+  font-size: 18px;
+  line-height: 1.6;
+  max-width: 800px;
+  text-align: center;
+}
+
+.middle-section .footer strong {
+  color: #ffffff;
+}
+
+/* Tablet view */
+@media (max-width: 992px) {
+  .middle-section .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile view */
+@media (max-width: 600px) {
+  .middle-section .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .middle-section .container {
+    padding: 20px;
+  }
+
+  .middle-section .card {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .middle-section .card img {
+    height: auto;
+  }
+
+  .middle-section .card-content {
+    height: auto;
+  }
+}
+
+
+  </style>
+
+  <div class="container">
+    <h2>Explore Vibrant India Tours</h2>
+    <p>
+      Discover India's diverse landscapes and rich culture with our expertly curated tour packages,
+      ensuring a seamless travel experience.
+    </p>
+
+    <div class="grid">
+      <div class="card">
+        <img src="{% static 'images/india.png' %}" alt="Tailored Itineraries">
+        <h3>Tailored Itineraries</h3>
+        <p>Design your perfect vacation with personalized travel plans that match your interests and schedule.</p>
+      </div>
+
+      <div class="card">
+        <img src="{% static 'images/local.png' %}" alt="Local Expertise">
+        <h3>Local Expertise</h3>
+        <p>Benefit from our deep knowledge of India’s diverse regions, ensuring authentic and enriching experiences.</p>
+      </div>
+
+      <div class="card">
+        <img src="{% static 'images/travelsupport.png' %}" alt="24/7 Travel Support">
+        <h3>24/7 Travel Support</h3>
+        <p>Enjoy peace of mind with round-the-clock assistance to address any travel concerns or changes.</p>
+      </div>
+
+      <div class="card">
+        <img src="{% static 'images/diverse.png' %}" alt="Diverse Destinations">
+        <h3>Diverse Destinations</h3>
+        <p>Explore a wide range of destinations across India, from bustling cities to serene landscapes.</p>
+      </div>
+
+      <div class="card">
+        <img src="{% static 'images/affordable.png' %}" alt="Affordable Luxury">
+        <h3>Affordable Luxury</h3>
+        <p>Experience premium travel services at competitive prices, ensuring great value for your money.</p>
+      </div>
+
+      <div class="card">
+        <img src="{% static 'images/eco.png' %}" alt="Eco-Friendly Options">
+        <h3>Eco-Friendly Options</h3>
+        <p>Choose sustainable travel packages that minimize environmental impact and support local communities.</p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>
+        <strong>Rocket Singh</strong> is your trusted travel companion. Our expertly curated tour packages offer
+        an exclusive immersion into India's vibrant culture and breathtaking landscapes. Enjoy seamless itineraries,
+        unmatched experiences, and personalized service.
+      </p>
+    </div>
+    <div class="text-center mt-4">
+      <a href="{% url 'packages' %}" class="btn btn-warning btn-lg fw-bold">View Tour Packages</a>
+    </div>
+
+  </div>
+</div>

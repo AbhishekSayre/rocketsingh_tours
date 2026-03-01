@@ -1,0 +1,217 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+  body {
+    background-color: #043d3b;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .signup-container {
+    margin-top: 100px; /* INCREASED TOP MARGIN from navbar */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .signup-form {
+    width: 100%;
+    max-width: 450px;
+    padding: 35px 30px;
+    background-color: #00332f;
+    border-radius: 20px;
+    color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  }
+
+  .signup-form h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #ffffff;
+  }
+
+  .signup-form label {
+    display: block;
+    margin-top: 10px;
+    color: #D4D4D4;
+  }
+
+  .signup-form input,
+  .signup-form select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    background: #063d3d;
+    border: none;
+    border-radius: 10px;
+    color: white;
+  }
+
+  .password-container {
+    position: relative;
+  }
+
+  .toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 35%;
+    cursor: pointer;
+    color: #ccc;
+  }
+
+  .match-indicator {
+    font-size: 0.8em;
+    color: #0f0;
+    margin-top: 2px;
+  }
+
+  .errorlist {
+    color: #ff6b6b;
+    font-size: 0.85em;
+    margin-bottom: 5px;
+  }
+
+  .signup-form input[type="checkbox"] {
+    width: auto;
+    margin-right: 5px;
+  }
+
+  .terms-label {
+    display: inline;
+    font-size: 0.9em;
+    color: #ccc;
+  }
+
+  input[type="checkbox"] {
+    transform: scale(1.2);
+    accent-color: #3399ff;
+    margin-right: 8px;
+  }
+
+  .terms-label {
+    font-size: 0.9em;
+    color: #ccc;
+  }
+
+  .signup-form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #2F8BFC;
+    color: #00332f;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    margin-top: 20px;
+    font-size: 1em;
+  }
+  .signup-form button:hover {
+      background-color: #1c6cd7;
+    }
+
+  .login-link {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 0.9em;
+  }
+  /* Your existing styles */
+  input::placeholder {
+    color: #bdbdbd !important;
+  }
+
+  input.form-control::placeholder {
+    color: #bdbdbd !important;
+  }
+
+  /* Optional for other inputs */
+  textarea::placeholder,
+  select::placeholder {
+    color: #bdbdbd !important;
+  }
+</style>
+
+<div class="signup-container">
+  <div class="signup-form">
+    <h2>SIGNUP PAGE</h2>
+
+    {% if form.errors %}
+      <p style="color: red; font-weight: bold;">Please fix the errors below:</p>
+    {% endif %}
+
+    <form method="post">
+      {% if form.non_field_errors %}
+        <div style="color: red;">
+          {{ form.non_field_errors }}
+        </div>
+      {% endif %}
+      {% csrf_token %}
+
+      {{ form.name.label_tag }}{{ form.name }}{{ form.name.errors }}
+      {{ form.email.label_tag }}{{ form.email }}{{ form.email.errors }}
+      {{ form.phone.label_tag }}{{ form.phone }}{{ form.phone.errors }}
+      {{ form.gender.label_tag }}{{ form.gender }}{{ form.gender.errors }}
+      {{ form.dob.label_tag }}{{ form.dob }}{{ form.dob.errors }}
+
+      <label>{{ form.password1.label }}</label>
+      <div class="password-container">
+        {{ form.password1 }}
+        <span class="toggle-password" onclick="toggleVisibility('id_password1', this)">👁️</span>
+      </div>
+      {{ form.password1.errors }}
+
+      <label>{{ form.password2.label }}</label>
+      <div class="password-container">
+        {{ form.password2 }}
+        <span class="toggle-password" onclick="toggleVisibility('id_password2', this)">👁️</span>
+      </div>
+      {{ form.password2.errors }}
+
+      <div id="match-indicator" class="match-indicator" style="display: none;">✔ Passwords match</div>
+
+      <div style="display: flex; align-items: center; margin-top: 15px;">
+  {{ form.terms }}
+        <label for="id_terms" class="terms-label" style="margin: 0;">
+            I agree to the <a href="#">Terms and Conditions</a>
+        </label>
+        </div>
+
+      {{ form.terms.errors }}
+
+      <button type="submit">Sign up</button>
+    </form>
+
+    <div class="login-link">
+      Already have an account? <a href="{% url 'login' %}">Login</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  function toggleVisibility(id, icon) {
+    const input = document.getElementById(id);
+    if (input.type === "password") {
+      input.type = "text";
+      icon.textContent = "🙈";
+    } else {
+      input.type = "password";
+      icon.textContent = "👁️";
+    }
+  }
+
+  const pass1 = document.getElementById('id_password1');
+  const pass2 = document.getElementById('id_password2');
+  const matchMsg = document.getElementById('match-indicator');
+
+  if (pass1 && pass2) {
+    [pass1, pass2].forEach(input => {
+      input.addEventListener('input', () => {
+        if (pass1.value && pass2.value && pass1.value === pass2.value) {
+          matchMsg.style.display = 'block';
+        } else {
+          matchMsg.style.display = 'none';
+        }
+      });
+    });
+  }
+</script>
+{% endblock %}

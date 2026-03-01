@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Book Your Tour | Rocket Singh{% endblock %}
+
+{% block content %}
+
+  
+  <style>
+      body {
+      background-color: #234038;
+      color: white;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 1300px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 40px;
+      font-weight: 700;
+      font-size: 2.2rem;
+      color: #ffc107;
+      margin-top: 100px;
+    }
+
+    .card-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+    }
+
+    .package-card {
+      position: relative;
+      background-color: #352524;
+      border-radius: 12px;
+      overflow: hidden;
+      width: 320px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease;
+    }
+
+    .package-card:hover {
+      transform: translateY(-6px);
+    }
+
+    .package-image {
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+    }
+
+    .package-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+}
+
+    .package-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 15px;
+      color: #fff;
+    }
+
+    .package-info {
+      font-size: 0.95rem;
+      margin-bottom: 8px;
+      color: #eee;
+    }
+
+    .package-info::before {
+      margin-right: 6px;
+    }
+
+    .package-info.destination::before {
+      content: "📍";
+    }
+
+    .package-info.duration::before {
+      content: "📅";
+    }
+
+    .package-info.price::before {
+      content: "💰";
+    }
+
+    .btn-book {
+      background-color: #ffc107;
+      border: none;
+      color: #352524;
+      font-weight: bold;
+      padding: 10px 20px;
+      margin-top: auto; /* 🟡 FIX: aligns buttons at the bottom */
+      cursor: pointer;
+      border-radius: 5px;
+      align-self: flex-start;
+      }
+
+    @media (max-width: 768px) {
+      .package-card {
+        width: 100%;
+      }
+    }
+    
+  </style>
+
+
+  <div class="container">
+    <h2 class="section-title">Explore Our Tour Packages</h2>
+    <div class="card-grid">
+
+
+  {% for tour in tours %}
+  <div class="package-card">
+    <img src="{{ tour.image.url }}" alt="{{ tour.name }}" class="package-image">
+
+    
+    {% with closest_date=tour.dates.all|first %}
+
+        {% if closest_date %}
+            {%  if closest_date.seats_available <= 5 %}
+                <div style="
+                    position: absolute;
+                    top: 20px;
+                    right: -30px;
+                    background: red;
+                    color: white;
+                    font-weight: bold;
+                    padding: 5px 40px;
+                    transform: rotate(45deg);
+                    font-size: 14px;
+                ">
+                    Limited Seats!
+                </div>
+            {% endif %}
+        {% endif %}
+    {% endwith %}
+
+
+    <div class="package-body">
+      <div class="package-title">{{ tour.name }}</div>
+      <div class="package-info destination">Destination: {{ tour.destination }}</div>
+      <div class="package-info duration">Duration: {{ tour.duration }}</div>
+      <div class="package-info price">₹{{ tour.price }} / person</div>
+      <div class="package-info">Includes: {{ tour.includes }}</div>
+
+
+      <a href="{% url 'booknow' tour.id %}">
+          <button class="btn-book">Book Now</button>
+      </a>
+      
+
+      </div>
+    </div>
+    {% endfor %}
+      
+
+      
+
+
+    </div>
+  </div>
+
+
+
+  
+{% endblock %}
+
