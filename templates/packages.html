@@ -123,7 +123,7 @@
 
   {% for tour in tours %}
   <div class="package-card">
-    <img src="{{ tour.image.url }}" alt="{{ tour.name }}" class="package-image">
+    <img src="{{ tour.image }}" alt="{{ tour.name }}" class="package-image">
 
     
     {% with closest_date=tour.dates.all|first %}

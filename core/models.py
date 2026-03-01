@@ -72,7 +72,8 @@ class TourPackage(models.Model):
     duration = models.CharField(max_length=50)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     includes = models.TextField(default='Hotel, food, sightseeing')
-    image = models.ImageField(upload_to='tour_images/')
+    image = models.URLField(max_length=500)
+    
 
     def __str__(self):
         return self.name
