@@ -21,7 +21,7 @@ RAZORPAY_KEY_SECRET = config("RAZORPAY_KEY_SECRET")
 
 
 
-ALLOWED_HOSTS = config("ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
+ALLOWED_HOSTS = config("ALLOWED_HOSTS", "127.0.0.1,localhost", "AbhishekSayre.pythonanywhere.com").split(",")
 
 
 
