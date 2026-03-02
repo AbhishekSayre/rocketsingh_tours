@@ -173,13 +173,8 @@ ACCOUNT_LOGIN_METHODS = {'email'}
 
 DATABASES = {
     'default': {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": config("MYSQL_DATABASE"),      # use Railway variable
-        "USER": config("MYSQLUSER"),           # Railway username
-        "PASSWORD": config("MYSQLPASSWORD"),   # Railway password
-        "HOST": config("MYSQLHOST"),           # Railway host (copy from plugin)
-        "PORT": config("MYSQLPORT", "3306"),   # Railway port
-        "OPTIONS": {"init_command": "SET sql_mode='STRICT_TRANS_TABLES'"},
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / "db.sqlite3",
     }
 }
 
