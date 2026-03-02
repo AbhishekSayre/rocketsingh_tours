@@ -21,18 +21,15 @@ RAZORPAY_KEY_SECRET = config("RAZORPAY_KEY_SECRET")
 
 
 
-ALLOWED_HOSTS = config("ALLOWED_HOSTS", "127.0.0.1,localhost", "AbhishekSayre.pythonanywhere.com").split(",")
+ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="127.0.0.1,localhost,AbhishekSayre.pythonanywhere.com").split(",")
 
 
 
-
-
-
-try:
-    import pymysql
-    pymysql.install_as_MySQLdb()
-except Exception:
-    pass
+# try:
+#     import pymysql
+#     pymysql.install_as_MySQLdb()
+# except Exception:
+#     pass
 
 
 # Application definition
@@ -77,7 +74,7 @@ SOCIAL_AUTH_LOGIN_ERROR_URL = "/login/"
 
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://rocketsinghtours-production-1249.up.railway.app",
+    "https://AbhishekSayre.pythonanywhere.com",
 ]
 
 # Security & SSL
